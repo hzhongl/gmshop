@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yueqian.dao.ShopcarMapper">
+
+<resultMap type="com.yueqian.dao.entity.Shopcar" id="shopresultMap">
+	<id column="sid" property="sid"/>
+	<result column="product_id" property="productId"/>
+	<result column="user_id" property="uid"/>
+	<association property="product" javaType="com.yueqian.dao.entity.Product">
+		<result column="id" jdbcType="BIGINT" property="id" />
+    	<result column="name" jdbcType="VARCHAR" property="name" />
+    	<result column="price" jdbcType="REAL" property="price" />
+    	<result column="freight" jdbcType="REAL" property="freight" />
+    	<result column="sell_address" jdbcType="VARCHAR" property="sellAddress" />	
+	</association>
+</resultMap>
+<select id="findAll" resultMap="shopresultMap">
+	select tbl_shopcar.*,tbl_product.* from tbl_shopcar,tbl_product where product_id=id
+</select>
+<select id="findAllByUid" resultMap="shopresultMap">
+	select tbl_user.*,tbl_product.*,tbl_shopcar.* from  tbl_user,tbl_product,tbl_shopcar where user_id=tbl_user.id and product_id = tbl_product.id and user_id =#{uid,jdbcType=BIGINT}
+</select>
+<insert id="insert" parameterType="com.yueqian.dao.entity.Shopcar">
+	 insert into tbl_shopcar (sid, product_id,user_id
+      )
+    values (#{sid,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},#{uid,jdbcType=BIGINT})
+</insert>
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_shopcar
+    where sid = #{sid,jdbcType=BIGINT}
+  </delete>
+</mapper>

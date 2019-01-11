@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yueqian.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.yueqian.dao.entity.Product">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="freight" jdbcType="REAL" property="freight" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="sell_num" jdbcType="INTEGER" property="sellNum" />
+    <result column="stock_num" jdbcType="INTEGER" property="stockNum" />
+    <result column="sell_address" jdbcType="VARCHAR" property="sellAddress" />
+    <result column="view_num" jdbcType="INTEGER" property="viewNum" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, price, freight, expire_time, sell_num, stock_num, sell_address, view_num, 
+    category_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.yueqian.dao.entity.Product">
+    insert into tbl_product (id, name, price, 
+      freight, expire_time, sell_num, 
+      stock_num, sell_address, view_num, 
+      category_id)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, 
+      #{freight,jdbcType=REAL}, #{expireTime,jdbcType=TIMESTAMP}, #{sellNum,jdbcType=INTEGER}, 
+      #{stockNum,jdbcType=INTEGER}, #{sellAddress,jdbcType=VARCHAR}, #{viewNum,jdbcType=INTEGER}, 
+      #{categoryId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yueqian.dao.entity.Product">
+    insert into tbl_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="freight != null">
+        freight,
+      </if>
+      <if test="expireTime != null">
+        expire_time,
+      </if>
+      <if test="sellNum != null">
+        sell_num,
+      </if>
+      <if test="stockNum != null">
+        stock_num,
+      </if>
+      <if test="sellAddress != null">
+        sell_address,
+      </if>
+      <if test="viewNum != null">
+        view_num,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="freight != null">
+        #{freight,jdbcType=REAL},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellNum != null">
+        #{sellNum,jdbcType=INTEGER},
+      </if>
+      <if test="stockNum != null">
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="sellAddress != null">
+        #{sellAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="viewNum != null">
+        #{viewNum,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yueqian.dao.entity.Product">
+    update tbl_product
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="freight != null">
+        freight = #{freight,jdbcType=REAL},
+      </if>
+      <if test="expireTime != null">
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellNum != null">
+        sell_num = #{sellNum,jdbcType=INTEGER},
+      </if>
+      <if test="stockNum != null">
+        stock_num = #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="sellAddress != null">
+        sell_address = #{sellAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="viewNum != null">
+        view_num = #{viewNum,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yueqian.dao.entity.Product">
+    update tbl_product
+    set name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      freight = #{freight,jdbcType=REAL},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      sell_num = #{sellNum,jdbcType=INTEGER},
+      stock_num = #{stockNum,jdbcType=INTEGER},
+      sell_address = #{sellAddress,jdbcType=VARCHAR},
+      view_num = #{viewNum,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <resultMap id="queryResultMap" type="com.yueqian.dao.entity.Product">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="freight" jdbcType="REAL" property="freight" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="sell_num" jdbcType="INTEGER" property="sellNum" />
+    <result column="stock_num" jdbcType="INTEGER" property="stockNum" />
+    <result column="sell_address" jdbcType="VARCHAR" property="sellAddress" />
+    <result column="view_num" jdbcType="INTEGER" property="viewNum" />
+  	 <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+  	<association property="category" javaType="com.yueqian.dao.entity.Category">
+  		<result column="cid" property="cid"/>
+  			<result column="cname" property="cname"/>
+  			<result  column="parent_id" property="parentId"/>
+  	</association>
+  </resultMap>
+  <resultMap id="resultMap" type="com.yueqian.dao.entity.Product">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="freight" jdbcType="REAL" property="freight" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="sell_num" jdbcType="INTEGER" property="sellNum" />
+    <result column="stock_num" jdbcType="INTEGER" property="stockNum" />
+    <result column="sell_address" jdbcType="VARCHAR" property="sellAddress" />
+    <result column="view_num" jdbcType="INTEGER" property="viewNum" />
+  	 <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+  	<association property="category" javaType="com.yueqian.dao.entity.Category">
+  		<result column="cid" property="cid"/>
+  			<result column="cname" property="cname"/>
+  			<result  column="parent_id" property="parentId"/>
+  	</association>
+  	<collection property="images" ofType="com.yueqian.dao.entity.Image">
+  		<result column="mid" property="mid"/>
+  			<result column="url" property="url"/>
+  			<result  column="product_id" property="productId"/>
+  	</collection>
+  </resultMap>
+  <select id="SelectByCategory" parameterType="java.lang.Long" resultMap="resultMap">
+  select tbl_product.*,m.id as mid, m.url,m.product_id from tbl_product,tbl_image as m where m.product_id=tbl_product.id and category_id = #{categoryId,jdbcType=BIGINT}
+  </select>
+  <select id="SelectAll"  resultMap="queryResultMap">
+  select tbl_product.*, c.id as cid ,c.name as cname ,c.parent_id from tbl_product , tbl_category as c where  c.id = tbl_product.category_id
+  </select>
+  <select id="selectIndex" resultMap="resultMap">
+  select tbl_product.*,m.id as mid, m.url,m.product_id from tbl_product,tbl_image as m where m.product_id=tbl_product.id  order by rand() limit 9
+  </select>
+  
+</mapper>
